@@ -1,4 +1,5 @@
 {
+  "root": true,
   "env": {
     "es6": true,
     "node": true
@@ -24,6 +25,23 @@
   },
   "plugins": ["@typescript-eslint"],
   "rules": {
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          ["external", "internal"],
+          "unknown",
+          ["parent", "sibling"],
+          "index"
+        ],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc"
+        }
+      }
+    ],
+
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -34,9 +52,7 @@
   },
   "settings": {
     "import/resolver": {
-      "typescript": {
-        "alwaysTryTypes": true
-      }
+      "typescript": {}
     }
   }
 }

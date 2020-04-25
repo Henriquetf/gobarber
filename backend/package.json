@@ -1,7 +1,6 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "index.js",
   "license": "MIT",
   "dependencies": {
     "express": "^4.17.1"
@@ -22,6 +21,8 @@
   },
   "scripts": {
     "build": "tsc",
+    "lint": "eslint \"src/**\"",
+    "lint:fix": "yarn lint --fix",
     "dev:server": "ts-node-dev --respawn --transpileOnly --no-notify src/server.ts",
     "dev:server:debug": "ts-node-dev --inspect --respawn --transpileOnly --no-notify src/server.ts"
   }
