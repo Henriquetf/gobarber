@@ -3,13 +3,14 @@ import { Router } from 'express';
 import CreateUserService from '../services/CreateUserService';
 
 const usersRouter = Router();
-const createUserService = new CreateUserService();
+
+const createUser = new CreateUserService();
 
 usersRouter.post('/', async (request, response) => {
   try {
     const { name, email, password } = request.body;
 
-    const user = await createUserService.execute({
+    const user = await createUser.execute({
       name,
       email,
       password,
