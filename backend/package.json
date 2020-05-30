@@ -36,8 +36,8 @@
     "build": "tsc",
     "lint": "eslint \"src/**\"",
     "lint:fix": "yarn lint --fix",
-    "dev:server": "ts-node-dev --respawn --transpileOnly --no-notify src/server.ts",
-    "dev:server:debug": "ts-node-dev --inspect --respawn --transpileOnly --no-notify src/server.ts",
+    "dev:server": "ts-node-dev --respawn --transpileOnly --no-notify --poll src/server.ts",
+    "dev:server:debug": "ts-node-dev --inspect --respawn --transpileOnly --no-notify --poll src/server.ts",
     "typeorm": "ts-node ./node_modules/typeorm/cli.js"
   }
 }
