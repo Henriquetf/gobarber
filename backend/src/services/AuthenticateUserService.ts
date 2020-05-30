@@ -3,6 +3,7 @@ import { sign } from 'jsonwebtoken';
 import { getRepository } from 'typeorm';
 
 import authConfig from '../config/auth';
+import { UnauthorizedError } from '../errors/AppError';
 import User from '../models/User';
 
 interface AuthenticateUserRequest {
@@ -30,13 +31,13 @@ class AuthenticateUserService {
     });
 
     if (!user) {
-      throw new Error('Invalid email or password.');
+      throw new UnauthorizedError('Invalid email or password.');
     }
 
     const passwordMatched = await compare(password, user.password);
 
     if (!passwordMatched) {
-      throw new Error('Invalid email or password.');
+      throw new UnauthorizedError('Invalid email or password.');
     }
 
     const { expiresIn, secret } = authConfig.jwt;
