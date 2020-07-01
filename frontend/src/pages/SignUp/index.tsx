@@ -6,15 +6,19 @@ import Button from '../../components/Button';
 import Input from '../../components/Input';
 import { Container, Content, Background } from './styles';
 
-const SignIn: React.FC = () => {
+const SignUp: React.FC = () => {
   return (
     <Container>
       <Content>
         <img src={logoImg} alt="GoBarber" height={134} />
 
         <form>
-          <h1>Faça seu logon</h1>
-
+          <Input
+            name="name"
+            type="text"
+            placeholder="Nome"
+            icon={FeatherIcons.User}
+          />
           <Input
             name="email"
             type="email"
@@ -28,14 +32,12 @@ const SignIn: React.FC = () => {
             icon={FeatherIcons.Lock}
           />
 
-          <Button type="submit">Entrar</Button>
-
-          <a href="forgot-password">Esqueci minha senha</a>
+          <Button type="submit">Cadastrar</Button>
         </form>
 
         <a href="">
-          <FeatherIcons.LogIn size={16} />
-          <span>Criar conta</span>
+          <FeatherIcons.ArrowLeft size={16} />
+          <span>Voltar para logon</span>
         </a>
       </Content>
       <Background />
@@ -43,4 +45,4 @@ const SignIn: React.FC = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;
