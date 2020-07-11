@@ -74,7 +74,7 @@ const SignIn: React.FC = () => {
             icon={FeatherIcons.Lock}
           />
 
-          <Button type="submit">
+          <Button type="submit" disabled={isLoading}>
             {isLoading ? <FeatherIcons.Loader /> : 'Entrar'}
           </Button>
 

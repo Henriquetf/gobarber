@@ -18,4 +18,8 @@ export const ButtonContainer = styled.button`
   &:focus {
     background: ${shade(0.2, '#ff9000')};
   }
+
+  &:disabled {
+    opacity: 0.5;
+  }
 `;
