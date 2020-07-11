@@ -38,6 +38,9 @@
       }
     ],
 
+    "@typescript-eslint/no-unused-expressions": "error",
+    "no-unused-expressions": "off",
+
     "camelcase": "off",
 
     "import/prefer-default-export": "off",
