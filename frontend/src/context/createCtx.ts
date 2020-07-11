@@ -1,6 +1,5 @@
 import { createContext, useContext } from 'react';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/explicit-function-return-type
 export default function createCtx<ContextShape>() {
   const context = createContext<ContextShape | undefined>(undefined);
 
