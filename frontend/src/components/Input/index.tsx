@@ -1,4 +1,5 @@
-import React from 'react';
+import { useField } from '@unform/core';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { Icon as FeatherIcon } from 'react-feather';
 
 import { Container } from './styles';
@@ -8,11 +9,41 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string;
 }
 
-const Input: React.FC<InputProps> = ({ icon: Icon, ...rest }) => {
+const Input: React.FC<InputProps> = ({ icon: Icon, name, ...rest }) => {
+  const [isFocused, setIsFocused] = useState<boolean>(false);
+  const [isFilled, setIsFilled] = useState<boolean>(false);
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const { fieldName, defaultValue, error, registerField } = useField(name);
+
+  const handleInputBlur = useCallback(() => {
+    setIsFocused(false);
+    setIsFilled(Boolean(inputRef.current?.value));
+  }, []);
+
+  const handleInputFocus = useCallback(() => {
+    setIsFocused(true);
+  }, []);
+
+  useEffect(() => {
+    registerField({
+      name: fieldName,
+      ref: inputRef.current,
+      path: 'value',
+    });
+  }, [fieldName, registerField]);
+
   return (
-    <Container>
+    <Container isFocused={isFocused} isFilled={isFilled}>
       {Icon && <Icon size={16} />}
-      <input {...rest} />
+      <input
+        onFocus={handleInputFocus}
+        onBlur={handleInputBlur}
+        defaultValue={defaultValue}
+        ref={inputRef}
+        {...rest}
+      />
     </Container>
   );
 };
