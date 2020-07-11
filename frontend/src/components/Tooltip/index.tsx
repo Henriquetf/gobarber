@@ -21,7 +21,7 @@ const Tooltip: React.FC<TooltipProps> = ({
       className={className}
       color={color}
       textColor={textColor}
-      tabIndex={0}
+      tabIndex={-1}
     >
       {children}
       <span>{title}</span>

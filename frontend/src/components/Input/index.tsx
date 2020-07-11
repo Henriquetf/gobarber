@@ -2,7 +2,7 @@ import { useField } from '@unform/core';
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import * as FeatherIcons from 'react-feather';
 
-import { Container, Error } from './styles';
+import { Container, Error, InnerInput } from './styles';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   icon?: FeatherIcons.Icon;
@@ -40,7 +40,7 @@ const Input: React.FC<InputProps> = ({ icon: Icon, name, ...rest }) => {
     <Container hasError={hasError} isFocused={isFocused} isFilled={isFilled}>
       {Icon && <Icon size={16} />}
 
-      <input
+      <InnerInput
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}
         defaultValue={defaultValue}

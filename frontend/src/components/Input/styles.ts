@@ -42,29 +42,28 @@ export const Container = styled.div<ContainerProps>`
         color: #ff9000;
       `}
   }
+`;
 
-  input {
-    flex: 1;
-    min-width: 0;
+export const InnerInput = styled.input`
+  flex: 1;
+  min-width: 0;
 
-    color: #f4ede8;
-    background: inherit;
+  color: #f4ede8;
+  background: inherit;
 
-    font-size: 1rem;
+  font-size: 1rem;
 
-    margin-left: 4px;
-    padding-left: 14px;
-    padding-right: 18px;
-    outline: 0;
-    border: 0;
-    border-radius: 10px;
+  padding-left: 18px;
+  padding-right: 18px;
+  outline: 0;
+  border: 0;
+  border-radius: 10px;
 
-    height: 56px;
-    width: 100%;
+  height: 56px;
+  width: 100%;
 
-    &::placeholder {
-      color: #666360;
-    }
+  &::placeholder {
+    color: #666360;
   }
 `;
 
@@ -79,6 +78,7 @@ export const Error = styled(Tooltip)`
 
   cursor: pointer;
 
+  ${InnerInput}:focus + & span,
   &:hover span,
   &:active span,
   &:focus span {
