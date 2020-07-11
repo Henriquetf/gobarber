@@ -3,9 +3,11 @@ import { useState, useCallback } from 'react';
 const localStoragePrefix = '@GoBarber';
 
 export default function useLocalStorage<T>(key: string, initialState: T) {
+  const keyWithPrefix = `${localStoragePrefix}:${key}`;
+
   const [state, setState] = useState<T>(() => {
     try {
-      const value = localStorage.getItem(`${localStoragePrefix}:${key}`);
+      const value = localStorage.getItem(keyWithPrefix);
 
       if (value === null) {
         return initialState;
@@ -21,13 +23,16 @@ export default function useLocalStorage<T>(key: string, initialState: T) {
     (value: T) => {
       setState(value);
 
-      localStorage.setItem(
-        `${localStoragePrefix}:${key}`,
-        JSON.stringify(value),
-      );
+      localStorage.setItem(keyWithPrefix, JSON.stringify(value));
     },
-    [key],
+    [keyWithPrefix],
   );
 
-  return [state, setLocalStorageState] as const;
+  const removeLocalStorageState = useCallback(() => {
+    setState(initialState);
+
+    localStorage.removeItem(keyWithPrefix);
+  }, [initialState, keyWithPrefix]);
+
+  return [state, setLocalStorageState, removeLocalStorageState] as const;
 }

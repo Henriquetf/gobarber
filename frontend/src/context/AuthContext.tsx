@@ -19,8 +19,9 @@ interface SignInCredentials {
 
 interface AuthContextShape {
   user: User;
-  signIn(credentials: SignInCredentials): Promise<void>;
   isLoading: boolean;
+  signIn(credentials: SignInCredentials): Promise<void>;
+  signOut(): void;
 }
 
 const [useAuthContext, AuthContext] = createCtx<AuthContextShape>();
@@ -28,10 +29,13 @@ const [useAuthContext, AuthContext] = createCtx<AuthContextShape>();
 const AuthProvider: React.FC = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const [authData, setAuthData] = useLocalStorage<AuthStorage>('auth', {
-    token: null,
-    user: {},
-  });
+  const [authData, setAuthData, removeAuthData] = useLocalStorage<AuthStorage>(
+    'auth',
+    {
+      token: null,
+      user: {},
+    },
+  );
 
   const signIn = useCallback(
     async ({ email, password }: SignInCredentials) => {
@@ -54,8 +58,14 @@ const AuthProvider: React.FC = ({ children }) => {
     [setAuthData],
   );
 
+  const signOut = useCallback(() => {
+    removeAuthData();
+  }, [removeAuthData]);
+
   return (
-    <AuthContext.Provider value={{ user: authData.user, signIn, isLoading }}>
+    <AuthContext.Provider
+      value={{ user: authData.user, signIn, signOut, isLoading }}
+    >
       {children}
     </AuthContext.Provider>
   );
