@@ -74,7 +74,8 @@ export const Error = styled(Tooltip)`
   justify-content: center;
   align-self: stretch;
 
-  padding: 0 18px;
+  padding: 0 14px;
+  margin: 4px;
 
   cursor: pointer;
 
