@@ -5,9 +5,12 @@ import * as FeatherIcons from 'react-feather';
 import * as Yup from 'yup';
 
 import logoImg from '../../assets/img/logo.svg';
+
 import Button from '../../components/Button';
 import Input from '../../components/Input';
+
 import getValidationErrors from '../../utils/getValidationErrors';
+
 import { Container, Content, Background } from './styles';
 
 const signUpSchema = Yup.object().shape({
