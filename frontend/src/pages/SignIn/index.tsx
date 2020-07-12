@@ -9,7 +9,7 @@ import logoImg from '../../assets/img/logo.svg';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 
-import { useAuthContext } from '../../context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 import getValidationErrors from '../../utils/getValidationErrors';
 
 import { Container, Content, Background } from './styles';
@@ -26,7 +26,7 @@ const signInSchema = Yup.object()
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
-  const { signIn, isLoading } = useAuthContext();
+  const { signIn, isLoading } = useAuth();
 
   const handleSubmit = useCallback(
     async (data: Record<string, unknown>) => {

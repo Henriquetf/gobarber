@@ -24,7 +24,7 @@ interface AuthContextShape {
   signOut(): void;
 }
 
-const [useAuthContext, AuthContext] = createCtx<AuthContextShape>();
+const [useAuth, AuthContext] = createCtx<AuthContextShape>();
 
 const AuthProvider: React.FC = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -71,4 +71,4 @@ const AuthProvider: React.FC = ({ children }) => {
   );
 };
 
-export { useAuthContext, AuthProvider };
+export { useAuth, AuthProvider };
