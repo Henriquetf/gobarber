@@ -14,12 +14,15 @@ export const ButtonContainer = styled.button`
 
   transition: background-color 0.2s ease-in-out;
 
-  &:hover,
-  &:focus {
-    background: ${shade(0.2, '#ff9000')};
+  &:not(:disabled) {
+    &:hover,
+    &:focus {
+      background: ${shade(0.2, '#ff9000')};
+    }
   }
 
   &:disabled {
     opacity: 0.5;
+    cursor: not-allowed;
   }
 `;
