@@ -10,6 +10,7 @@ import Button from '../../components/Button';
 import Input from '../../components/Input';
 
 import { useAuth } from '../../context/AuthContext';
+import { useToast } from '../../context/ToastContext';
 import getValidationErrors from '../../utils/getValidationErrors';
 
 import { Container, Content, Background } from './styles';
@@ -27,6 +28,7 @@ const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
   const { signIn, isLoading } = useAuth();
+  const { addToast } = useToast();
 
   const handleSubmit = useCallback(
     async (data: Record<string, unknown>) => {
@@ -41,16 +43,23 @@ const SignIn: React.FC = () => {
 
         formRef.current?.setErrors([]);
 
-        signIn(signInData);
+        await signIn(signInData);
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
 
           formRef.current?.setErrors(errors);
+        } else {
+          addToast({
+            type: 'error',
+            title: 'Erro na autenticação',
+            description:
+              'Ocorreu um erro ao fazer login, verifique as credenciais.',
+          });
         }
       }
     },
-    [signIn, isLoading],
+    [signIn, isLoading, addToast],
   );
 
   return (
