@@ -2,6 +2,7 @@ import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import React, { useCallback, useRef } from 'react';
 import * as FeatherIcons from 'react-feather';
+import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import logoImg from '../../assets/img/logo.svg';
@@ -46,6 +47,8 @@ const SignUp: React.FC = () => {
         <img src={logoImg} alt="GoBarber" height={134} />
 
         <Form ref={formRef} onSubmit={handleSubmit}>
+          <h1>Faça seu cadastro</h1>
+
           <Input
             name="name"
             type="text"
@@ -68,10 +71,10 @@ const SignUp: React.FC = () => {
           <Button type="submit">Cadastrar</Button>
         </Form>
 
-        <a href="">
+        <Link to="/">
           <FeatherIcons.ArrowLeft size={20} />
           <span>Voltar para logon</span>
-        </a>
+        </Link>
       </Content>
       <Background />
     </Container>

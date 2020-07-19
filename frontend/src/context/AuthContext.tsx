@@ -7,18 +7,14 @@ import createCtx from './createCtx';
 
 type User = Record<string, unknown>;
 
-interface AuthStorage {
-  token: string | null;
-  user: User;
-}
-
 interface SignInCredentials {
   email: string;
   password: string;
 }
 
 interface AuthContextShape {
-  user: User;
+  user?: User;
+  isAuthenticated: boolean;
   isLoading: boolean;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
@@ -29,12 +25,13 @@ const [useAuth, AuthContext] = createCtx<AuthContextShape>();
 const AuthProvider: React.FC = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const [authData, setAuthData, removeAuthData] = useLocalStorage<AuthStorage>(
-    'auth',
-    {
-      token: null,
-      user: {},
-    },
+  const [, setToken, removeToken] = useLocalStorage<string | undefined>(
+    'token',
+    undefined,
+  );
+  const [user, setUser, removeUser] = useLocalStorage<User | undefined>(
+    'user',
+    undefined,
   );
 
   const signIn = useCallback(
@@ -47,24 +44,29 @@ const AuthProvider: React.FC = ({ children }) => {
           password,
         });
 
-        setAuthData({
-          token: response.data.token,
-          user: response.data.user,
-        });
+        setToken(response.data.token);
+        setUser(response.data.user);
       } finally {
         setIsLoading(false);
       }
     },
-    [setAuthData],
+    [setToken, setUser],
   );
 
   const signOut = useCallback(() => {
-    removeAuthData();
-  }, [removeAuthData]);
+    removeToken();
+    removeUser();
+  }, [removeToken, removeUser]);
 
   return (
     <AuthContext.Provider
-      value={{ user: authData.user, signIn, signOut, isLoading }}
+      value={{
+        user,
+        isAuthenticated: Boolean(user),
+        signIn,
+        signOut,
+        isLoading,
+      }}
     >
       {children}
     </AuthContext.Provider>

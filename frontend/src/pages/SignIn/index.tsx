@@ -2,6 +2,7 @@ import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import React, { useCallback, useRef } from 'react';
 import * as FeatherIcons from 'react-feather';
+import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import logoImg from '../../assets/img/logo.svg';
@@ -90,10 +91,10 @@ const SignIn: React.FC = () => {
           <a href="forgot-password">Esqueci minha senha</a>
         </Form>
 
-        <a href="">
+        <Link to="/signup">
           <FeatherIcons.LogIn size={16} />
           <span>Criar conta</span>
-        </a>
+        </Link>
       </Content>
       <Background />
     </Container>
