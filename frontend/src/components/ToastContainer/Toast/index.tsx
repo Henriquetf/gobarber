@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, CSSProperties } from 'react';
 import { AlertCircle, XCircle, CheckCircle, Info } from 'react-feather';
 
 import { useToast, ToastMessage } from '../../../context/ToastContext';
@@ -6,6 +6,7 @@ import { Container, ToastContent } from './styles';
 
 interface ToastProps {
   message: ToastMessage;
+  style: CSSProperties;
 }
 
 const icons = {
@@ -16,6 +17,7 @@ const icons = {
 
 const Toast: React.FC<ToastProps> = ({
   message: { id, title, description, type },
+  style,
 }) => {
   const { removeToast } = useToast();
 
@@ -30,7 +32,7 @@ const Toast: React.FC<ToastProps> = ({
   }, [removeToast, id]);
 
   return (
-    <Container type={type}>
+    <Container type={type} style={style}>
       {icons[type || 'info']}
 
       <ToastContent>
