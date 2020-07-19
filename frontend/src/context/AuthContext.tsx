@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from 'react';
 
 import useLocalStorage from '../hooks/useLocalStorage';
-import api from '../services/api';
 
+import { authenticate } from '../services/api/sessions';
 import createCtx from './createCtx';
 
 type User = Record<string, unknown>;
@@ -39,13 +39,10 @@ const AuthProvider: React.FC = ({ children }) => {
       setIsLoading(true);
 
       try {
-        const response = await api.post('sessions', {
-          email,
-          password,
-        });
+        const { data } = await authenticate({ email, password });
 
-        setToken(response.data.token);
-        setUser(response.data.user);
+        setToken(data.token);
+        setUser(data.user);
       } finally {
         setIsLoading(false);
       }
