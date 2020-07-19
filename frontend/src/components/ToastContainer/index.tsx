@@ -2,47 +2,16 @@ import React from 'react';
 
 import { AlertCircle, XCircle } from 'react-feather';
 
-import { Container, Toast, ToastContent } from './styles';
+import Toast from './Toast';
+import { Container } from './styles';
 
 const ToastContainer: React.FC = () => {
+
   return (
     <Container>
-      <Toast>
-        <AlertCircle />
-
-        <ToastContent>
-          <strong>Info</strong>
-        </ToastContent>
-
-        <button type="button">
-          <XCircle size={20} />
-        </button>
-      </Toast>
-
-      <Toast type="success">
-        <AlertCircle />
-
-        <ToastContent>
-          <strong>Sucesso</strong>
-        </ToastContent>
-
-        <button type="button">
-          <XCircle size={20} />
-        </button>
-      </Toast>
-
-      <Toast type="error">
-        <AlertCircle />
-
-        <ToastContent>
-          <strong>Aconteceu um erro</strong>
-          <p>Não foi possível fazer login na aplicação</p>
-        </ToastContent>
-
-        <button type="button">
-          <XCircle size={20} />
-        </button>
-      </Toast>
+      {messages.map((message) => (
+        <Toast key={message.id} message={message} />
+      ))}
     </Container>
   );
 };
