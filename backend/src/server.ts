@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import 'reflect-metadata';
 
 import cors from 'cors';
@@ -5,10 +6,9 @@ import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
 
 import { tmpFolder } from './config/upload';
+import createConnection from './database';
 import { AppError } from './errors/AppError';
 import routes from './routes';
-
-import './database';
 
 const app = express();
 
@@ -26,7 +26,6 @@ app.use((err: Error, request: Request, response: Response, next: NextFunction) =
   }
 
   if (process.env.NODE_ENV === 'development') {
-    // eslint-disable-next-line no-console
     console.log(err);
   }
 
@@ -35,7 +34,16 @@ app.use((err: Error, request: Request, response: Response, next: NextFunction) =
   });
 });
 
-app.listen(3333, () => {
-  // eslint-disable-next-line no-console
-  console.log('Server started running on port 3333');
-});
+function init() {
+  createConnection()
+    .then(() => {
+      app.listen(3333, () => {
+        console.log('Server started running on port 3333');
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+init();
