@@ -1,0 +1,68 @@
+{
+  "env": {
+    "es2020": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb",
+    "airbnb/hooks",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/typescript",
+    "plugin:prettier/recommended",
+    "prettier/@typescript-eslint"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 11,
+    "sourceType": "module"
+  },
+  "plugins": ["react", "@typescript-eslint"],
+  "rules": {
+    "react/prop-types": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "react/jsx-filename-extension": [
+      "error",
+      { "extensions": [".ts", ".tsx", ".js", ".jsx"] }
+    ],
+
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+
+    "@typescript-eslint/no-unused-expressions": "error",
+    "no-unused-expressions": "off",
+
+    "camelcase": "off",
+    "no-multi-str": "off",
+
+    "import/prefer-default-export": "off",
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          ["external", "internal"],
+          "unknown",
+          ["parent", "sibling"],
+          "index"
+        ],
+        "newlines-between": "always-and-inside-groups",
+        "alphabetize": {
+          "order": "asc"
+        }
+      }
+    ],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "ts": "never",
+        "tsx": "never"
+      }
+    ]
+  }
+}
