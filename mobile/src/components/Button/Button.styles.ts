@@ -1,7 +1,7 @@
 import { RectButton } from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
 
-import { RobotoSlabMedium } from '../../styles/fonts/RobotoSlab';
+import Text from '../Text';
 
 export const Container = styled(RectButton)`
   width: 100%;
@@ -16,9 +16,8 @@ export const Container = styled(RectButton)`
   padding: 16px;
 `;
 
-export const ButtonText = styled.Text`
+export const ButtonText = styled(Text)`
   color: #312e38;
 
   font-size: 14px;
-  ${RobotoSlabMedium}
 `;

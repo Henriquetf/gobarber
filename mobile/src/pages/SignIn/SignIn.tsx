@@ -1,23 +1,63 @@
 import React from 'react';
-import { Image } from 'react-native';
+import {
+  Image,
+  View,
+  KeyboardAvoidingView,
+  ScrollView,
+  Platform,
+} from 'react-native';
 
 import logoImg from '../../assets/logo.png';
 
+import FeatherIcon from '../../components/FeatherIcon';
 import Input from '../../components/Input';
 
-import { Container, Title, Button } from './SignIn.styles';
+import {
+  Container,
+  Title,
+  Button,
+  ForgotPassword,
+  ForgotPasswordText,
+  CreateAccountButton,
+  CreateAccountButtonText,
+} from './SignIn.styles';
 
 const SignIn: React.FC = () => {
   return (
-    <Container>
-      <Image source={logoImg} />
-      <Title>Faça seu login</Title>
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      enabled
+    >
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+        }}
+        keyboardShouldPersistTaps="handled"
+      >
+        <Container>
+          <Image source={logoImg} />
 
-      <Input name="email" icon="mail" placeholder="E-mail" />
-      <Input name="password" icon="lock" placeholder="Senha" />
+          <View>
+            <Title>Faça seu login</Title>
+          </View>
 
-      <Button onPress={() => {}}>Entrar</Button>
-    </Container>
+          <Input name="email" icon="mail" placeholder="E-mail" />
+          <Input name="password" icon="lock" placeholder="Senha" />
+
+          <Button onPress={() => {}}>Entrar</Button>
+
+          <ForgotPassword onPress={() => {}}>
+            <ForgotPasswordText>Esqueci minha senha</ForgotPasswordText>
+          </ForgotPassword>
+        </Container>
+
+        <CreateAccountButton onPress={() => {}} activeOpacity={0.6}>
+          <FeatherIcon name="log-in" size={20} color="#FF9000" />
+          <CreateAccountButtonText>Criar uma conta</CreateAccountButtonText>
+        </CreateAccountButton>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
