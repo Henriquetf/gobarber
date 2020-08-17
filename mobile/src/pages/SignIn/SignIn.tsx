@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import {
   Image,
@@ -23,6 +24,12 @@ import {
 } from './SignIn.styles';
 
 const SignIn: React.FC = () => {
+  const navigation = useNavigation();
+
+  function handlePressCreateAccount() {
+    navigation.navigate<'SignUp'>('SignUp');
+  }
+
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
@@ -52,7 +59,10 @@ const SignIn: React.FC = () => {
           </ForgotPassword>
         </Container>
 
-        <CreateAccountButton onPress={() => {}} activeOpacity={0.6}>
+        <CreateAccountButton
+          onPress={handlePressCreateAccount}
+          activeOpacity={0.6}
+        >
           <FeatherIcon name="log-in" size={20} color="#FF9000" />
           <CreateAccountButtonText>Criar uma conta</CreateAccountButtonText>
         </CreateAccountButton>

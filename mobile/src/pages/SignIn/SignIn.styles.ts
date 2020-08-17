@@ -11,6 +11,7 @@ export const Container = styled.View`
   justify-content: center;
 
   padding: 40px;
+  padding-bottom: 0;
 `;
 
 export const Title = styled(Text)`
