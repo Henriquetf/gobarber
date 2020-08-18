@@ -4,7 +4,6 @@ import styled from 'styled-components/native';
 import Text from '../Text';
 
 export const Container = styled(RectButton)`
-  width: 100%;
   min-height: 60px;
 
   justify-content: center;
