@@ -7,6 +7,7 @@ export default function useLocalStorage<T>(key: string, initialState: T) {
   const keyWithPrefix = `${localStoragePrefix}:${key}`;
 
   const [state, setState] = useState<T>();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     async function loadStoredData(): Promise<void> {
@@ -15,6 +16,8 @@ export default function useLocalStorage<T>(key: string, initialState: T) {
       if (storedData) {
         setState(JSON.parse(storedData));
       }
+
+      setIsLoading(false);
     }
 
     loadStoredData();
@@ -35,5 +38,10 @@ export default function useLocalStorage<T>(key: string, initialState: T) {
     return AsyncStorage.removeItem(keyWithPrefix);
   }, [initialState, keyWithPrefix]);
 
-  return [state, setLocalStorageState, removeLocalStorageState] as const;
+  return [
+    state,
+    setLocalStorageState,
+    removeLocalStorageState,
+    isLoading,
+  ] as const;
 }

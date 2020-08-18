@@ -23,28 +23,20 @@ interface AuthContextShape {
 const [useAuth, AuthContext] = createCtx<AuthContextShape>();
 
 const AuthProvider: React.FC = ({ children }) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [, setToken, removeToken, isLoadingToken] = useAsyncStorage<
+    string | undefined
+  >('token', undefined);
+  const [user, setUser, removeUser, isLoadingUser] = useAsyncStorage<
+    User | undefined
+  >('user', undefined);
 
-  const [, setToken, removeToken] = useAsyncStorage<string | undefined>(
-    'token',
-    undefined,
-  );
-  const [user, setUser, removeUser] = useAsyncStorage<User | undefined>(
-    'user',
-    undefined,
-  );
+  const isLoading = isLoadingToken || isLoadingUser;
 
   const signIn = useCallback(
     async ({ email, password }: SignInCredentials) => {
-      setIsLoading(true);
+      const { data } = await authenticate({ email, password });
 
-      try {
-        const { data } = await authenticate({ email, password });
-
-        await Promise.all([setToken(data.token), setUser(data.user)]);
-      } finally {
-        setIsLoading(false);
-      }
+      await Promise.all([setToken(data.token), setUser(data.user)]);
     },
     [setToken, setUser],
   );
