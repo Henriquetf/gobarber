@@ -1,13 +1,14 @@
 /* eslint-disable no-console */
 import 'reflect-metadata';
+import 'express-async-errors';
 
 import cors from 'cors';
 import express, { NextFunction, Request, Response } from 'express';
-import 'express-async-errors';
 
-import { tmpFolder } from './config/upload';
-import createConnection from './database';
-import { AppError } from './errors/AppError';
+import { tmpFolder } from '@config/upload';
+import { AppError } from '@shared/errors/AppError';
+import createConnection from '@shared/infrastructure/typeorm';
+
 import routes from './routes';
 
 const app = express();

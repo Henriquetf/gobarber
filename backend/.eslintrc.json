@@ -28,6 +28,13 @@
     "import/order": [
       "error",
       {
+        "pathGroups": [
+          {
+            "pattern": "@*/**",
+            "group": "external",
+            "position": "after"
+          }
+        ],
         "groups": [
           "builtin",
           ["external", "internal"],

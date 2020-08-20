@@ -1,8 +1,9 @@
 import { startOfHour } from 'date-fns';
 import { getCustomRepository } from 'typeorm';
 
-import { BadRequestError } from '../errors/AppError';
-import Appointment from '../models/Appointment';
+import { BadRequestError } from '@shared/errors/AppError';
+
+import Appointment from '../infrastructure/typeorm/entities/Appointment';
 import AppointmentsRepository from '../repositories/AppointmentsRepository';
 
 type CreateAppointmentRequest = Pick<Appointment, 'providerId' | 'date'>;

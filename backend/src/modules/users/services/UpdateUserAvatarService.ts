@@ -3,9 +3,10 @@ import path from 'path';
 
 import { getRepository } from 'typeorm';
 
-import { tmpFolder } from '../config/upload';
-import { UnauthorizedError } from '../errors/AppError';
-import User from '../models/User';
+import { tmpFolder } from '@config/upload';
+import { UnauthorizedError } from '@shared/errors/AppError';
+
+import User from '../infrastructure/typeorm/entities/User';
 
 interface UpdateUserAvatarRequest {
   userId: string;

@@ -1,8 +1,8 @@
 import { RequestHandler } from 'express';
 import { verify } from 'jsonwebtoken';
 
-import authConfig from '../config/auth';
-import { UnauthorizedError } from '../errors/AppError';
+import authConfig from '@config/auth';
+import { UnauthorizedError } from '@shared/errors/AppError';
 
 interface TokenPayload {
   iat: number;

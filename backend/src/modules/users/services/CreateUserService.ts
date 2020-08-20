@@ -1,8 +1,9 @@
 import { hash } from 'bcrypt';
 import { getRepository } from 'typeorm';
 
-import { BadRequestError } from '../errors/AppError';
-import User from '../models/User';
+import { BadRequestError } from '@shared/errors/AppError';
+
+import User from '../infrastructure/typeorm/entities/User';
 
 type CreateUserRequest = Pick<User, 'name' | 'email' | 'password'>;
 
