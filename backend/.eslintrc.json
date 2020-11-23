@@ -5,11 +5,10 @@
     "node": true
   },
   "extends": [
-    "airbnb-base",
+    "airbnb-typescript/base",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "plugin:import/typescript",
     "plugin:prettier/recommended",
     "prettier/@typescript-eslint"
   ],
@@ -17,13 +16,11 @@
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
   },
-  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "plugins": ["@typescript-eslint"],
   "rules": {
     "import/order": [
       "error",
@@ -35,13 +32,7 @@
             "position": "after"
           }
         ],
-        "groups": [
-          "builtin",
-          ["external", "internal"],
-          "unknown",
-          ["parent", "sibling"],
-          "index"
-        ],
+        "groups": ["builtin", ["external", "internal"], "unknown", ["parent", "sibling"], "index"],
         "newlines-between": "always",
         "alphabetize": {
           "order": "asc"
@@ -49,16 +40,8 @@
       }
     ],
 
-    "max-classes-per-file": "off",
-    "import/extensions": [
-      "error",
-      "ignorePackages",
-      {
-        "ts": "never"
-      }
-    ],
-
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "max-classes-per-file": "off"
   },
   "settings": {
     "import/resolver": {
