@@ -9,6 +9,8 @@ import { tmpFolder } from '@config/upload';
 import { AppError } from '@shared/errors/AppError';
 import createConnection from '@shared/infrastructure/typeorm';
 
+import '@shared/container';
+
 import routes from './routes';
 
 const app = express();

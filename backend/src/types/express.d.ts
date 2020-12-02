@@ -1,9 +1,9 @@
-interface UserShape {
+interface IUserShape {
   id: string;
 }
 
 declare namespace Express {
   export interface Request {
-    user: UserShape;
+    user: IUserShape;
   }
 }

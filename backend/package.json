@@ -12,6 +12,7 @@
     "multer": "^1.4.2",
     "pg": "^8.5.1",
     "reflect-metadata": "^0.1.13",
+    "tsyringe": "^4.4.0",
     "typeorm": "^0.2.29"
   },
   "devDependencies": {
@@ -39,7 +40,7 @@
     "build": "tsc",
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix",
-    "dev:server": "ts-node-dev --inspect --respawn --transpile-only --no-notify src/bin/server.ts",
-    "typeorm": "ts-node ./node_modules/typeorm/cli.js"
+    "dev:server": "NODE_ENV=\"development\" ts-node-dev -r tsconfig-paths/register --inspect --respawn --transpile-only --no-notify src/shared/infrastructure/http/server.ts",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
   }
 }

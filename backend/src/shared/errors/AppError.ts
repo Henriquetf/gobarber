@@ -3,13 +3,12 @@ enum StatusCode {
   UNAUTHORIZED = 401,
 }
 
-export class AppError {
+export class AppError extends Error {
   public readonly statusCode: number;
 
-  public readonly message: string;
-
   constructor(message = 'error', statusCode = 400) {
-    this.message = message;
+    super(message);
+
     this.statusCode = statusCode;
   }
 }

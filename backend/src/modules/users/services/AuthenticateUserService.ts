@@ -1,35 +1,36 @@
 import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
-import { getRepository } from 'typeorm';
+import { inject, injectable } from 'tsyringe';
 
 import authConfig from '@config/auth';
 import { UnauthorizedError } from '@shared/errors/AppError';
 
 import User from '../infrastructure/typeorm/entities/User';
+import UsersRepository from '../infrastructure/typeorm/repositories/UsersRepository';
+import IUsersRepository from '../repositories/IUsersRepository';
 
-interface AuthenticateUserRequest {
+interface IAuthenticateUserRequest {
   email: string;
   password: string;
 }
 
-type PartialUser = Pick<User, 'id' | 'name' | 'email' | 'password'>;
-
-interface AuthenticateUserResponse {
-  user: PartialUser;
+interface IAuthenticateUserResponse {
+  user: User;
   token: string;
 }
 
+@injectable()
 class AuthenticateUserService {
+  constructor(
+    @inject(UsersRepository.name)
+    private usersRepository: IUsersRepository,
+  ) {}
+
   public async execute({
     email,
     password,
-  }: AuthenticateUserRequest): Promise<AuthenticateUserResponse> {
-    const usersRepository = getRepository(User);
-
-    const user: PartialUser | undefined = await usersRepository.findOne({
-      select: ['id', 'name', 'email', 'password'],
-      where: { email },
-    });
+  }: IAuthenticateUserRequest): Promise<IAuthenticateUserResponse> {
+    const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {
       throw new UnauthorizedError('Invalid email or password.');
