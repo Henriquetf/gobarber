@@ -1,13 +1,15 @@
 import { container } from 'tsyringe';
 
+import '@modules/users/providers';
+
 import AppointmentsRepository from '@modules/appointments/infrastructure/typeorm/repositories/AppointmentsRepository';
 import IAppointmentsRepository from '@modules/appointments/repositories/IAppointmentsRepository';
 import UsersRepository from '@modules/users/infrastructure/typeorm/repositories/UsersRepository';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 
 container.registerSingleton<IAppointmentsRepository>(
-  AppointmentsRepository.name,
+  'AppointmentsRepository',
   AppointmentsRepository,
 );
 
-container.registerSingleton<IUsersRepository>(UsersRepository.name, UsersRepository);
+container.registerSingleton<IUsersRepository>('UsersRepository', UsersRepository);

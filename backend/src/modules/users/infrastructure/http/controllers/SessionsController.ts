@@ -1,22 +1,24 @@
 import { RequestHandler } from 'express';
 import { container } from 'tsyringe';
 
-import CreateUserService from '@modules/users/services/CreateUserService';
+import AuthenticateUserService from '@modules/users/services/AuthenticateUserService';
 
 export default class SessionsController {
   public create: RequestHandler = async (request, response) => {
-    const { name, email, password } = request.body;
+    const { email, password } = request.body;
 
-    const createUser = container.resolve(CreateUserService);
+    const authenticateUser = container.resolve(AuthenticateUserService);
 
-    const user = await createUser.execute({
-      name,
+    const { user, token } = await authenticateUser.execute({
       email,
       password,
     });
 
     delete user.password;
 
-    return response.json(user);
+    return response.json({
+      user,
+      token,
+    });
   };
 }

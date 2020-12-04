@@ -4,6 +4,8 @@ import { container } from 'tsyringe';
 
 import CreateAppointmentService from '@modules/appointments/services/CreateAppointmentService';
 
+import AppointmentsRepository from '../../typeorm/repositories/AppointmentsRepository';
+
 class AppointmentsController {
   public index: RequestHandler = async (request, response) => {
     const appointmentsRepository = new AppointmentsRepository();

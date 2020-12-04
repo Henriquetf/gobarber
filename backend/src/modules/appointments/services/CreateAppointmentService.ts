@@ -4,7 +4,6 @@ import { injectable, inject } from 'tsyringe';
 import { BadRequestError } from '@shared/errors/AppError';
 
 import Appointment from '../infrastructure/typeorm/entities/Appointment';
-import AppointmentsRepository from '../infrastructure/typeorm/repositories/AppointmentsRepository';
 import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
 
 interface ICreateAppointmentRequest {
@@ -15,7 +14,7 @@ interface ICreateAppointmentRequest {
 @injectable()
 class CreateAppointmentService {
   constructor(
-    @inject(AppointmentsRepository.name)
+    @inject('AppointmentsRepository')
     private appointmentsRepository: IAppointmentsRepository,
   ) {}
 

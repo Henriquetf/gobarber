@@ -7,7 +7,6 @@ import { tmpFolder } from '@config/upload';
 import { UnauthorizedError } from '@shared/errors/AppError';
 
 import User from '../infrastructure/typeorm/entities/User';
-import UsersRepository from '../infrastructure/typeorm/repositories/UsersRepository';
 import IUsersRepository from '../repositories/IUsersRepository';
 
 interface IUpdateUserAvatarRequest {
@@ -18,7 +17,7 @@ interface IUpdateUserAvatarRequest {
 @injectable()
 class UpdateUserAvatarService {
   constructor(
-    @inject(UsersRepository.name)
+    @inject('UsersRepository')
     private usersRepository: IUsersRepository,
   ) {}
 
