@@ -4,6 +4,7 @@ import path from 'path';
 import multer, { Options } from 'multer';
 
 export const tmpFolder = path.resolve(__dirname, '..', '..', 'tmp');
+export const uploadsFolder = path.resolve(tmpFolder, 'uploads');
 
 const uploadConfig: Options = {
   storage: multer.diskStorage({
