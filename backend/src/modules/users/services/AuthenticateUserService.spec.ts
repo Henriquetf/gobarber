@@ -6,13 +6,20 @@ import AuthenticateUserService from './AuthenticateUserService';
 import CreateUserService from './CreateUserService';
 
 describe('AuthenticateUser', () => {
+  let usersRepository: FakeUsersRepository;
+  let hashProvider: FakeHashProvider;
+  let createUser: CreateUserService;
+  let authenticateUser: AuthenticateUserService;
+
+  beforeEach(() => {
+    usersRepository = new FakeUsersRepository();
+    hashProvider = new FakeHashProvider();
+
+    createUser = new CreateUserService(usersRepository, hashProvider);
+    authenticateUser = new AuthenticateUserService(usersRepository, hashProvider);
+  });
+
   it('should be able to authenticate', async () => {
-    const usersRepository = new FakeUsersRepository();
-    const hashProvider = new FakeHashProvider();
-
-    const createUser = new CreateUserService(usersRepository, hashProvider);
-    const authenticateUser = new AuthenticateUserService(usersRepository, hashProvider);
-
     await createUser.execute({
       name: 'Admin',
       email: 'admin@gobarber.com',
@@ -28,11 +35,6 @@ describe('AuthenticateUser', () => {
   });
 
   it('should not be able to authenticate with a non existing user', async () => {
-    const usersRepository = new FakeUsersRepository();
-    const hashProvider = new FakeHashProvider();
-
-    const authenticateUser = new AuthenticateUserService(usersRepository, hashProvider);
-
     await expect(
       authenticateUser.execute({
         email: 'admin@gobarber.com',
@@ -42,12 +44,6 @@ describe('AuthenticateUser', () => {
   });
 
   it('should not be able to authenticate with an incorrect password', async () => {
-    const usersRepository = new FakeUsersRepository();
-    const hashProvider = new FakeHashProvider();
-
-    const createUser = new CreateUserService(usersRepository, hashProvider);
-    const authenticateUser = new AuthenticateUserService(usersRepository, hashProvider);
-
     await createUser.execute({
       name: 'Admin',
       email: 'admin@gobarber.com',

@@ -5,12 +5,18 @@ import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
 import CreateUserService from './CreateUserService';
 
 describe('CreateUser', () => {
+  let usersRepository: FakeUsersRepository;
+  let hashProvider: FakeHashProvider;
+  let createUser: CreateUserService;
+
+  beforeEach(() => {
+    usersRepository = new FakeUsersRepository();
+    hashProvider = new FakeHashProvider();
+
+    createUser = new CreateUserService(usersRepository, hashProvider);
+  });
+
   it('should be able to create a new user', async () => {
-    const usersRepository = new FakeUsersRepository();
-    const hashProvider = new FakeHashProvider();
-
-    const createUser = new CreateUserService(usersRepository, hashProvider);
-
     const user = await createUser.execute({
       name: 'Admin',
       email: 'admin@gobarber.com',
@@ -21,11 +27,6 @@ describe('CreateUser', () => {
   });
 
   it('should not be able to create two users with the same e-mail', async () => {
-    const usersRepository = new FakeUsersRepository();
-    const hashProvider = new FakeHashProvider();
-
-    const createUser = new CreateUserService(usersRepository, hashProvider);
-
     await createUser.execute({
       name: 'Admin',
       email: 'admin@gobarber.com',
