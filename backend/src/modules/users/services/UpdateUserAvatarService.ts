@@ -1,9 +1,5 @@
-import fs from 'fs';
-import path from 'path';
-
 import { inject, injectable } from 'tsyringe';
 
-import { tmpFolder } from '@config/upload';
 import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
 import { UnauthorizedError } from '@shared/errors/AppError';
 

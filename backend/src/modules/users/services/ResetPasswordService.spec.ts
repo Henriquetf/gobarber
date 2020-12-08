@@ -49,11 +49,20 @@ describe('ResetPassword', () => {
     // expect(userToken).toBeNull();
   });
 
-  it('should not be able to reset the password with non-existing token', async () => {
+  it('should not be able to reset the password with incorrect token', async () => {
     await expect(
       resetPassword.execute({
         password: '1234567',
         token: 'non-existing-token',
+      }),
+    ).rejects.toThrow(BadRequestError);
+  });
+
+  it('should not be able to reset the password with non-existing token', async () => {
+    await expect(
+      resetPassword.execute({
+        password: '1234567',
+        token: '00000000-0000-0000-0000-000000000000',
       }),
     ).rejects.toThrow(BadRequestError);
   });
