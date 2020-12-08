@@ -23,7 +23,7 @@ class FakeUsersRepository implements IUsersRepository {
       user,
       {
         id: uuid(),
-      },
+      } as User,
       data,
     );
 

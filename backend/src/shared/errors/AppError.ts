@@ -6,7 +6,7 @@ enum StatusCode {
 export class AppError extends Error {
   public readonly statusCode: number;
 
-  constructor(message = 'error', statusCode = 400) {
+  constructor(message = 'error', statusCode = StatusCode.BAD_REQUEST) {
     super(message);
 
     this.statusCode = statusCode;

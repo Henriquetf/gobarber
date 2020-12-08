@@ -9,3 +9,7 @@ tmp/*
 *.log
 
 /coverage/
+
+.env
+.env.*
+!.env.example
