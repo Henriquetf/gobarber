@@ -39,16 +39,16 @@ app.use((err: Error, request: Request, response: Response, next: NextFunction) =
   });
 });
 
-function init() {
-  createConnection()
-    .then(() => {
-      app.listen(3333, () => {
-        console.log('Server started running on port 3333');
-      });
-    })
-    .catch((err) => {
-      console.log(err);
+async function init() {
+  try {
+    await createConnection();
+
+    app.listen(3333, () => {
+      console.log('Server started running on port 3333');
     });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-init();
+void init();

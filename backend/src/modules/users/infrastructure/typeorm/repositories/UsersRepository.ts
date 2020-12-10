@@ -1,6 +1,7 @@
-import { getRepository, Repository } from 'typeorm';
+import { getRepository, Not, Repository } from 'typeorm';
 
 import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
+import IFindAllProvidersDTO from '@modules/users/dtos/IFindAllProvidersDTO';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 
 import User from '../entities/User';
@@ -24,6 +25,16 @@ class UsersRepository implements IUsersRepository {
     });
 
     return user || null;
+  }
+
+  public async findAllProviders({ exceptUserId }: IFindAllProvidersDTO): Promise<User[]> {
+    const providers = this.ormRepository.find({
+      where: {
+        id: Not(exceptUserId),
+      },
+    });
+
+    return providers;
   }
 
   public async create(userData: ICreateUserDTO): Promise<User> {
