@@ -15,6 +15,7 @@ class AppointmentsController {
   };
 
   public create: RequestHandler = async (request, response) => {
+    const userId = request.user.id;
     const { provider_id: providerId, date } = request.body;
 
     const createAppointment = container.resolve(CreateAppointmentService);
@@ -23,6 +24,7 @@ class AppointmentsController {
 
     const newAppointment = await createAppointment.execute({
       providerId,
+      userId,
       date: parsedDate,
     });
 

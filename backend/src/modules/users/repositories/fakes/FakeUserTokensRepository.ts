@@ -10,13 +10,13 @@ class FakeUserTokensRepository implements IUserTokensRepository {
   public async generate(userId: string): Promise<UserToken> {
     const userToken = new UserToken();
 
-    Object.assign(userToken, {
+    Object.assign<UserToken, Partial<UserToken>>(userToken, {
       id: uuid(),
       token: uuid(),
       userId,
       createdAt: new Date(),
       updatedAt: new Date(),
-    } as UserToken);
+    });
 
     this.userTokens.push(userToken);
 
