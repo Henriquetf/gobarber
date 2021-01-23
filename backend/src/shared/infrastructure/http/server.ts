@@ -9,7 +9,7 @@ import express, { NextFunction, Request, Response } from 'express';
 
 import { tmpFolder } from '@config/upload';
 import { AppError } from '@shared/errors/AppError';
-import createConnection from '@shared/infrastructure/typeorm';
+import createConnections from '@shared/infrastructure/typeorm';
 
 import '@shared/container';
 
@@ -41,7 +41,7 @@ app.use((err: Error, request: Request, response: Response, next: NextFunction) =
 
 async function init() {
   try {
-    await createConnection();
+    await createConnections();
 
     app.listen(3333, () => {
       console.log('Server started running on port 3333');

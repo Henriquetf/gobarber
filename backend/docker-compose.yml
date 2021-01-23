@@ -13,3 +13,9 @@ services:
       POSTGRES_DB: ${DATABASE_NAME}
 
     env_file: .env
+
+  mongo:
+    image: mongo
+
+    ports:
+      - '${MONGO_PORT}:27017'
