@@ -1,3 +1,4 @@
+import { celebrate, Joi, Segments } from 'celebrate';
 import { Router } from 'express';
 
 import ProfileController from '../controllers/ProfileController';
@@ -8,7 +9,18 @@ const profileController = new ProfileController();
 
 profileRouter.use(ensureAuthenticated);
 
-profileRouter.get('/', profileController.show);
-profileRouter.put('/', profileController.update);
+profileRouter.get('/', celebrate({ [Segments.BODY]: {} }), profileController.show);
+profileRouter.put(
+  '/',
+  celebrate({
+    [Segments.BODY]: {
+      name: Joi.string().required(),
+      email: Joi.string().email().required(),
+      password: Joi.string(),
+      newPassword: Joi.string(),
+    },
+  }),
+  profileController.update,
+);
 
 export default profileRouter;

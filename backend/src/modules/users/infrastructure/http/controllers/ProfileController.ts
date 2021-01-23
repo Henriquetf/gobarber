@@ -1,3 +1,4 @@
+import { classToClass } from 'class-transformer';
 import { RequestHandler } from 'express';
 import { container } from 'tsyringe';
 
@@ -12,9 +13,7 @@ export default class ProfileController {
 
     const user = await showProfile.execute(userId);
 
-    delete user.password;
-
-    return response.json(user);
+    return response.json(user.asTransformed());
   };
 
   public update: RequestHandler = async (request, response) => {
@@ -31,8 +30,6 @@ export default class ProfileController {
       password,
     });
 
-    delete user.password;
-
-    return response.json(user);
+    return response.json(user.asTransformed());
   };
 }

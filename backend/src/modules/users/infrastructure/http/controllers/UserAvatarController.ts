@@ -12,10 +12,8 @@ export default class UserAvatarController {
       userId: request.user.id,
     });
 
-    delete user.password;
-
     return response.json({
-      user,
+      user: user.asTransformed(),
     });
   };
 }

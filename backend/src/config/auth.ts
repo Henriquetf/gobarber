@@ -1,10 +1,7 @@
-const jwtSecret = 'j3jwQtnuWGvpCWd7QWFbVnTnEkpRjPCpSYbtPbrCMaI=';
-const jwtExpiresIn = '1 day';
-
 const authConfig = {
   jwt: {
-    secret: jwtSecret,
-    expiresIn: jwtExpiresIn,
+    secret: process.env.APP_SECRET,
+    expiresIn: '1 day',
   },
 };
 
