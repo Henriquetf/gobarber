@@ -12,11 +12,8 @@ const providerAppointmentsController = new ProviderAppointmentsController();
 
 appointmentsRouter.use(ensureAuthenticated);
 
-appointmentsRouter.get(
-  '/',
+appointmentsRouter.get('/', appointmentsController.index);
 
-  appointmentsController.index,
-);
 appointmentsRouter.post(
   '/',
   celebrate({

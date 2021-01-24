@@ -15,10 +15,7 @@ const icons = {
   success: <CheckCircle size={24} />,
 };
 
-const Toast: React.FC<ToastProps> = ({
-  message: { id, title, description, type },
-  style,
-}) => {
+const Toast: React.FC<ToastProps> = ({ message: { id, title, description, type }, style }) => {
   const { removeToast } = useToast();
 
   useEffect(() => {

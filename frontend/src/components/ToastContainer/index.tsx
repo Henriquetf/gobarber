@@ -9,24 +9,20 @@ import { Container } from './styles';
 const ToastContainer: React.FC = () => {
   const { messages } = useToast();
 
-  const messagesWithTransition = useTransition(
-    messages,
-    (message) => message.id,
-    {
-      from: {
-        right: '-120%',
-        opacity: 0,
-      },
-      enter: {
-        right: '0%',
-        opacity: 1,
-      },
-      leave: {
-        right: '-120%',
-        opacity: 0,
-      },
+  const messagesWithTransition = useTransition(messages, (message) => message.id, {
+    from: {
+      right: '-120%',
+      opacity: 0,
     },
-  );
+    enter: {
+      right: '0%',
+      opacity: 1,
+    },
+    leave: {
+      right: '-120%',
+      opacity: 0,
+    },
+  });
 
   return (
     <Container>

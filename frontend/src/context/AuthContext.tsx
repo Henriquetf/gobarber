@@ -25,24 +25,18 @@ const [useAuth, AuthContext] = createCtx<AuthContextShape>();
 const AuthProvider: React.FC = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const [, setToken, removeToken] = useLocalStorage<string | undefined>(
-    'token',
-    undefined,
-  );
-  const [user, setUser, removeUser] = useLocalStorage<User | undefined>(
-    'user',
-    undefined,
-  );
+  const [, setToken, removeToken] = useLocalStorage<string | undefined>('token', undefined);
+  const [user, setUser, removeUser] = useLocalStorage<User | undefined>('user', undefined);
 
   const signIn = useCallback(
     async ({ email, password }: SignInCredentials) => {
       setIsLoading(true);
 
       try {
-        const { data } = await authenticate({ email, password });
+        const authData = await authenticate({ email, password });
 
-        setToken(data.token);
-        setUser(data.user);
+        setToken(authData.token);
+        setUser(authData.user);
       } finally {
         setIsLoading(false);
       }

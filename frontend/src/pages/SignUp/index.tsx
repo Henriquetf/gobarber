@@ -22,12 +22,8 @@ const signUpSchema = Yup.object()
   .required()
   .shape({
     name: Yup.string().required('Nome obrigatório'),
-    email: Yup.string()
-      .required('E-mail obrigatório')
-      .email('Digite um e-mail válido'),
-    password: Yup.string()
-      .min(6, 'A senha deve conter no mínimo 6 dígitos')
-      .required(),
+    email: Yup.string().required('E-mail obrigatório').email('Digite um e-mail válido'),
+    password: Yup.string().min(6, 'A senha deve conter no mínimo 6 dígitos').required(),
   });
 
 const SignUp: React.FC = () => {
@@ -47,7 +43,7 @@ const SignUp: React.FC = () => {
 
         await signUp(signUpData);
 
-        history.push('/');
+        history.push('/signin');
 
         addToast({
           type: 'success',
@@ -79,29 +75,14 @@ const SignUp: React.FC = () => {
         <Form ref={formRef} onSubmit={handleSubmit}>
           <h1>Faça seu cadastro</h1>
 
-          <Input
-            name="name"
-            type="text"
-            placeholder="Nome"
-            icon={FeatherIcons.User}
-          />
-          <Input
-            name="email"
-            type="email"
-            placeholder="E-mail"
-            icon={FeatherIcons.Mail}
-          />
-          <Input
-            name="password"
-            type="password"
-            placeholder="Senha"
-            icon={FeatherIcons.Lock}
-          />
+          <Input name="name" type="text" placeholder="Nome" icon={FeatherIcons.User} />
+          <Input name="email" type="email" placeholder="E-mail" icon={FeatherIcons.Mail} />
+          <Input name="password" type="password" placeholder="Senha" icon={FeatherIcons.Lock} />
 
           <Button type="submit">Cadastrar</Button>
         </Form>
 
-        <Link to="/">
+        <Link to="/signin">
           <FeatherIcons.ArrowLeft size={20} />
           <span>Voltar para logon</span>
         </Link>

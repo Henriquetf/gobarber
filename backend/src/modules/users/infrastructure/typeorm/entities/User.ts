@@ -23,7 +23,7 @@ class User {
   email!: string;
 
   @Column()
-  avatar!: string;
+  avatar?: string;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt!: Date;
@@ -33,7 +33,7 @@ class User {
 
   @Expose({ name: 'avatarUrl' })
   getAvatarUrl(): string | null {
-    if (this.avatar === null) {
+    if (!this.avatar) {
       return null;
     }
 

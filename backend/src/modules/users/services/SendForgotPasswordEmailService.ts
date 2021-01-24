@@ -48,7 +48,7 @@ class SendForgotPasswordEmailService {
         template: forgotPasswordTemplate,
         variables: {
           name: user.name,
-          link: `${baseUrl}/reset_password?token=${token}`,
+          link: `${baseUrl}/reset-password?token=${token}`,
         },
       },
     });

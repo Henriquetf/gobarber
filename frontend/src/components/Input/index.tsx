@@ -15,7 +15,9 @@ const Input: React.FC<InputProps> = ({ icon: Icon, name, ...rest }) => {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { fieldName, defaultValue, error, registerField } = useField(name);
+  const field = useField(name);
+  const { fieldName, error, registerField } = field;
+  const defaultValue = field.defaultValue as string;
 
   const hasError = Boolean(error);
 

@@ -13,7 +13,7 @@ export default function useLocalStorage<T>(key: string, initialState: T) {
         return initialState;
       }
 
-      return JSON.parse(value);
+      return JSON.parse(value) as T;
     } catch {
       return initialState;
     }

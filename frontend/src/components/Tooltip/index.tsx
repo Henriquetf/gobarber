@@ -17,12 +17,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   textColor = '#312e38',
 }) => {
   return (
-    <Container
-      className={className}
-      color={color}
-      textColor={textColor}
-      tabIndex={-1}
-    >
+    <Container className={className} color={color} textColor={textColor} tabIndex={-1}>
       {children}
       <span>{title}</span>
     </Container>
