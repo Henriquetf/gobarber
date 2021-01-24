@@ -1,6 +1,13 @@
-const authConfig = {
+export interface IAuthConfig {
   jwt: {
-    secret: process.env.APP_SECRET,
+    secret: string;
+    expiresIn: string;
+  };
+}
+
+const authConfig: IAuthConfig = {
+  jwt: {
+    secret: process.env.NODE_ENV === 'test' ? 'test-env-secret' : process.env.APP_SECRET || '',
     expiresIn: '1 day',
   },
 };

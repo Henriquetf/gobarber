@@ -20,12 +20,10 @@ class AppointmentsController {
 
     const createAppointment = container.resolve(CreateAppointmentService);
 
-    const parsedDate = parseISO(date);
-
     const newAppointment = await createAppointment.execute({
       providerId,
       userId,
-      date: parsedDate,
+      date,
     });
 
     return response.json(newAppointment);

@@ -2,6 +2,7 @@ import { format, getHours, isBefore, startOfHour } from 'date-fns';
 import { injectable, inject } from 'tsyringe';
 
 import INotificationsRepository from '@modules/notifications/repositories/INotificationsRepository';
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 import { BadRequestError } from '@shared/errors/AppError';
 
 import Appointment from '../infrastructure/typeorm/entities/Appointment';
@@ -21,6 +22,9 @@ class CreateAppointmentService {
 
     @inject('NotificationsRepository')
     private notificationsRepository: INotificationsRepository,
+
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider,
   ) {}
 
   public async execute({
@@ -53,6 +57,9 @@ class CreateAppointmentService {
       userId,
       date: appointmentDate,
     });
+
+    const cacheKey = `provider-appointments:${providerId}:${format(appointmentDate, 'yyyy-M-d')}`;
+    await this.cacheProvider.invalidate(cacheKey);
 
     const formattedDate = format(appointmentDate, "dd/MM/yyyy 'às' HH:mm'h'");
 

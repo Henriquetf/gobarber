@@ -1,6 +1,7 @@
 enum StatusCode {
   BAD_REQUEST = 400,
   UNAUTHORIZED = 401,
+  TOO_MANY_REQUESTS = 429,
 }
 
 export class AppError extends Error {
@@ -22,5 +23,11 @@ export class BadRequestError extends AppError {
 export class UnauthorizedError extends AppError {
   constructor(message: string) {
     super(message, StatusCode.UNAUTHORIZED);
+  }
+}
+
+export class TooManyRequestsError extends AppError {
+  constructor(message: string) {
+    super(message, StatusCode.TOO_MANY_REQUESTS);
   }
 }

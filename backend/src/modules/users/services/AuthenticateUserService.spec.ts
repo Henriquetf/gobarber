@@ -1,3 +1,4 @@
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import { UnauthorizedError } from '@shared/errors/AppError';
 
 import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
@@ -9,13 +10,15 @@ describe('AuthenticateUser', () => {
   let usersRepository: FakeUsersRepository;
   let hashProvider: FakeHashProvider;
   let createUser: CreateUserService;
+  let cacheProvider: FakeCacheProvider;
   let authenticateUser: AuthenticateUserService;
 
   beforeEach(() => {
     usersRepository = new FakeUsersRepository();
     hashProvider = new FakeHashProvider();
+    cacheProvider = new FakeCacheProvider();
 
-    createUser = new CreateUserService(usersRepository, hashProvider);
+    createUser = new CreateUserService(usersRepository, hashProvider, cacheProvider);
     authenticateUser = new AuthenticateUserService(usersRepository, hashProvider);
   });
 

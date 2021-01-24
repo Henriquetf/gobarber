@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 import 'reflect-metadata';
 import 'express-async-errors';
-
 import 'dotenv/config';
 
 import { errors } from 'celebrate';
@@ -13,11 +12,12 @@ import { AppError } from '@shared/errors/AppError';
 import createConnections from '@shared/infrastructure/typeorm';
 
 import '@shared/container';
-
+import rateLimiter from './middlewares/rateLimiter';
 import routes from './routes';
 
 const app = express();
 
+app.use(rateLimiter);
 app.use(cors());
 app.use(express.json());
 app.use('/files', express.static(tmpFolder));
