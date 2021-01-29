@@ -1,11 +1,17 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import useLocalStorage from '../hooks/useLocalStorage';
+import api from '../services/api/api';
 
 import { authenticate } from '../services/api/sessions';
 import createCtx from './createCtx';
 
-type User = Record<string, unknown>;
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  avatarUrl: string | null;
+}
 
 interface SignInCredentials {
   email: string;
@@ -23,9 +29,10 @@ interface AuthContextShape {
 const [useAuth, AuthContext] = createCtx<AuthContextShape>();
 
 const AuthProvider: React.FC = ({ children }) => {
+  const [isSetupComplete, setIsSetupComplete] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [, setToken, removeToken] = useLocalStorage<string | undefined>('token', undefined);
+  const [token, setToken, removeToken] = useLocalStorage<string | undefined>('token', undefined);
   const [user, setUser, removeUser] = useLocalStorage<User | undefined>('user', undefined);
 
   const signIn = useCallback(
@@ -44,6 +51,13 @@ const AuthProvider: React.FC = ({ children }) => {
     [setToken, setUser],
   );
 
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    api.defaults.headers.authorization = token ? `Bearer ${token}` : undefined;
+
+    setIsSetupComplete(true);
+  }, [token]);
+
   const signOut = useCallback(() => {
     removeToken();
     removeUser();
@@ -59,7 +73,7 @@ const AuthProvider: React.FC = ({ children }) => {
         isLoading,
       }}
     >
-      {children}
+      {isSetupComplete ? children : null}
     </AuthContext.Provider>
   );
 };

@@ -7,7 +7,12 @@ interface AuthenticateParams {
 
 interface AuthenticateData {
   token: string;
-  user: Record<string, unknown>;
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    avatarUrl: string | null;
+  };
 }
 
 export async function authenticate(params: AuthenticateParams): Promise<AuthenticateData> {
