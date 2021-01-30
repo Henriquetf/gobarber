@@ -6,7 +6,7 @@ import api from '../services/api/api';
 import { authenticate } from '../services/api/sessions';
 import createCtx from './createCtx';
 
-interface User {
+export interface User {
   id: string;
   name: string;
   email: string;
@@ -24,6 +24,7 @@ interface AuthContextShape {
   isLoading: boolean;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
+  updateUser(user: User): void;
 }
 
 const [useAuth, AuthContext] = createCtx<AuthContextShape>();
@@ -51,6 +52,11 @@ const AuthProvider: React.FC = ({ children }) => {
     [setToken, setUser],
   );
 
+  const signOut = useCallback(() => {
+    removeToken();
+    removeUser();
+  }, [removeToken, removeUser]);
+
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     api.defaults.headers.authorization = token ? `Bearer ${token}` : undefined;
@@ -58,19 +64,15 @@ const AuthProvider: React.FC = ({ children }) => {
     setIsSetupComplete(true);
   }, [token]);
 
-  const signOut = useCallback(() => {
-    removeToken();
-    removeUser();
-  }, [removeToken, removeUser]);
-
   return (
     <AuthContext.Provider
       value={{
         user,
         isAuthenticated: Boolean(user),
+        isLoading,
         signIn,
         signOut,
-        isLoading,
+        updateUser: setUser,
       }}
     >
       {isSetupComplete ? children : null}

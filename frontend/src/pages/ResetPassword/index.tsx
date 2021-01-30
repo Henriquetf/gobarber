@@ -1,7 +1,7 @@
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import React, { useCallback, useRef, useState } from 'react';
-import * as FeatherIcons from 'react-feather';
+import * as Fi from 'react-feather';
 import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 
@@ -87,17 +87,12 @@ const ResetPassword: React.FC = () => {
         <Form ref={formRef} onSubmit={handleSubmit}>
           <h1>Resetar senha</h1>
 
-          <Input
-            name="password"
-            type="password"
-            placeholder="Nova senha"
-            icon={FeatherIcons.Lock}
-          />
+          <Input name="password" type="password" placeholder="Nova senha" icon={Fi.Lock} />
           <Input
             name="password_confirmation"
             type="password"
             placeholder="Confirmação da senha"
-            icon={FeatherIcons.Lock}
+            icon={Fi.Lock}
           />
 
           <Button loading={isLoading} type="submit">

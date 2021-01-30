@@ -1,7 +1,7 @@
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import React, { useCallback, useRef } from 'react';
-import * as FeatherIcons from 'react-feather';
+import * as Fi from 'react-feather';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 
@@ -68,8 +68,8 @@ const SignIn: React.FC = () => {
         <Form ref={formRef} onSubmit={handleSubmit}>
           <h1>Faça seu logon</h1>
 
-          <Input name="email" type="email" placeholder="E-mail" icon={FeatherIcons.Mail} />
-          <Input name="password" type="password" placeholder="Senha" icon={FeatherIcons.Lock} />
+          <Input name="email" type="email" placeholder="E-mail" icon={Fi.Mail} />
+          <Input name="password" type="password" placeholder="Senha" icon={Fi.Lock} />
 
           <Button loading={isLoading} type="submit">
             Entrar
@@ -79,7 +79,7 @@ const SignIn: React.FC = () => {
         </Form>
 
         <Link to="/signup">
-          <FeatherIcons.LogIn size={16} />
+          <Fi.LogIn size={16} />
           <span>Criar conta</span>
         </Link>
       </Content>

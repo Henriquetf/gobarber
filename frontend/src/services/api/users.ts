@@ -1,3 +1,4 @@
+import { User } from '../../context/AuthContext';
 import api from './api';
 
 interface SignUpParams {
@@ -22,4 +23,14 @@ export async function forgotPassword(email: string): Promise<void> {
 
 export async function resetPassword(params: ResetPasswordParams): Promise<void> {
   await api.post('/password/reset', params);
+}
+
+export async function updateAvatar(avatar: File): Promise<User> {
+  const formData = new FormData();
+
+  formData.append('avatar', avatar);
+
+  const response = await api.patch<{ user: User }>('/users/avatar', formData);
+
+  return response.data.user;
 }

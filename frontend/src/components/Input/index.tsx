@@ -1,15 +1,16 @@
 import { useField } from '@unform/core';
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import * as FeatherIcons from 'react-feather';
+import * as Fi from 'react-feather';
 
 import { Container, Error, InnerInput } from './styles';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  icon?: FeatherIcons.Icon;
+  icon?: Fi.Icon;
   name: string;
+  containerStyle?: React.CSSProperties;
 }
 
-const Input: React.FC<InputProps> = ({ icon: Icon, name, ...rest }) => {
+const Input: React.FC<InputProps> = ({ icon: Icon, name, containerStyle, ...rest }) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [isFilled, setIsFilled] = useState<boolean>(false);
 
@@ -39,7 +40,7 @@ const Input: React.FC<InputProps> = ({ icon: Icon, name, ...rest }) => {
   }, [fieldName, registerField]);
 
   return (
-    <Container hasError={hasError} isFocused={isFocused} isFilled={isFilled}>
+    <Container hasError={hasError} isFocused={isFocused} isFilled={isFilled} style={containerStyle}>
       {Icon && <Icon size={16} />}
 
       <InnerInput
@@ -47,12 +48,13 @@ const Input: React.FC<InputProps> = ({ icon: Icon, name, ...rest }) => {
         onBlur={handleInputBlur}
         defaultValue={defaultValue}
         ref={inputRef}
+        name={name}
         {...rest}
       />
 
       {hasError && (
         <Error title={String(error)} color="#c53030" textColor="#ffffff">
-          <FeatherIcons.AlertCircle size={20} color="#c53030" />
+          <Fi.AlertCircle size={20} color="#c53030" />
         </Error>
       )}
     </Container>

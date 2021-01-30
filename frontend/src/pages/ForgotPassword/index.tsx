@@ -1,7 +1,7 @@
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import React, { useCallback, useRef, useState } from 'react';
-import * as FeatherIcons from 'react-feather';
+import * as Fi from 'react-feather';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 
@@ -79,7 +79,7 @@ const ForgotPassword: React.FC = () => {
         <Form ref={formRef} onSubmit={handleSubmit}>
           <h1>Recuperar senha</h1>
 
-          <Input name="email" type="email" placeholder="E-mail" icon={FeatherIcons.Mail} />
+          <Input name="email" type="email" placeholder="E-mail" icon={Fi.Mail} />
 
           <Button loading={isLoading} type="submit">
             Recuperar
@@ -87,7 +87,7 @@ const ForgotPassword: React.FC = () => {
         </Form>
 
         <Link to="/signin">
-          <FeatherIcons.LogIn size={16} />
+          <Fi.LogIn size={16} />
           <span>Voltar ao login</span>
         </Link>
       </Content>

@@ -1,7 +1,7 @@
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import React, { useCallback, useRef } from 'react';
-import * as FeatherIcons from 'react-feather';
+import * as Fi from 'react-feather';
 import { Link, useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 
@@ -75,15 +75,15 @@ const SignUp: React.FC = () => {
         <Form ref={formRef} onSubmit={handleSubmit}>
           <h1>Faça seu cadastro</h1>
 
-          <Input name="name" type="text" placeholder="Nome" icon={FeatherIcons.User} />
-          <Input name="email" type="email" placeholder="E-mail" icon={FeatherIcons.Mail} />
-          <Input name="password" type="password" placeholder="Senha" icon={FeatherIcons.Lock} />
+          <Input name="name" type="text" placeholder="Nome" icon={Fi.User} />
+          <Input name="email" type="email" placeholder="E-mail" icon={Fi.Mail} />
+          <Input name="password" type="password" placeholder="Senha" icon={Fi.Lock} />
 
           <Button type="submit">Cadastrar</Button>
         </Form>
 
         <Link to="/signin">
-          <FeatherIcons.ArrowLeft size={20} />
+          <Fi.ArrowLeft size={20} />
           <span>Voltar para logon</span>
         </Link>
       </Content>

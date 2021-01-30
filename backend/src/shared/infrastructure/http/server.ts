@@ -7,7 +7,7 @@ import { errors } from 'celebrate';
 import cors from 'cors';
 import express, { NextFunction, Request, Response } from 'express';
 
-import { tmpFolder } from '@config/upload';
+import { uploadsFolder } from '@config/upload';
 import { AppError } from '@shared/errors/AppError';
 import createConnections from '@shared/infrastructure/typeorm';
 
@@ -19,7 +19,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use('/files', express.static(tmpFolder));
+app.use('/files', express.static(uploadsFolder));
 
 app.use(rateLimiter);
 app.use(routes);
