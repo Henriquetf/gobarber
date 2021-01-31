@@ -1,11 +1,17 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import useAsyncStorage from '../hooks/useAsyncStorage';
+import api from '../services/api/api';
 
 import { authenticate } from '../services/api/sessions';
 import createCtx from './createCtx';
 
-type User = Record<string, unknown>;
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  avatarUrl: string;
+}
 
 interface SignInCredentials {
   email: string;
@@ -23,7 +29,7 @@ interface AuthContextShape {
 const [useAuth, AuthContext] = createCtx<AuthContextShape>();
 
 const AuthProvider: React.FC = ({ children }) => {
-  const [, setToken, removeToken, isLoadingToken] = useAsyncStorage<
+  const [token, setToken, removeToken, isLoadingToken] = useAsyncStorage<
     string | undefined
   >('token', undefined);
   const [user, setUser, removeUser, isLoadingUser] = useAsyncStorage<
@@ -44,6 +50,10 @@ const AuthProvider: React.FC = ({ children }) => {
   const signOut = useCallback(async () => {
     await Promise.all([removeToken(), removeUser()]);
   }, [removeToken, removeUser]);
+
+  useEffect(() => {
+    api.defaults.headers.authorization = `Bearer ${token}`;
+  }, [token]);
 
   return (
     <AuthContext.Provider

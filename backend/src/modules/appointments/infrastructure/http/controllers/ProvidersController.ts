@@ -1,3 +1,4 @@
+import { classToClass } from 'class-transformer';
 import { RequestHandler } from 'express';
 import { container } from 'tsyringe';
 
@@ -13,6 +14,6 @@ export default class ProvidersController {
       userId,
     });
 
-    return response.json(providers);
+    return response.json(classToClass(providers));
   };
 }

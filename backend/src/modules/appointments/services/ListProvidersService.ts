@@ -1,3 +1,4 @@
+import { classToClass } from 'class-transformer';
 import { inject, injectable } from 'tsyringe';
 
 import User from '@modules/users/infrastructure/typeorm/entities/User';
@@ -28,10 +29,10 @@ class ListProvidersService {
         exceptUserId: userId,
       });
 
-      await this.cacheProvider.save(cacheKey, providers);
+      await this.cacheProvider.save(cacheKey, classToClass(providers));
     }
 
-    return providers;
+    return classToClass(providers);
   }
 }
 

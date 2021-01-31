@@ -36,8 +36,12 @@
     "@typescript-eslint/no-unused-expressions": "error",
     "no-unused-expressions": "off",
 
+    "arrow-body-style": "off",
     "camelcase": "off",
     "no-multi-str": "off",
+
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["error"],
 
     "import/prefer-default-export": "off",
     "import/order": [
