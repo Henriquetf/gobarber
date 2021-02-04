@@ -44,9 +44,9 @@ const Profile: React.FC = () => {
           abortEarly: false,
         });
 
-        formRef.current?.setErrors([]);
+        formRef.current?.setErrors({});
 
-        const response = await api.put('/profile', data);
+        const response = await api.put('/profile', profileData);
 
         updateUser(response.data);
 

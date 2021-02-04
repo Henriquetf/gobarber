@@ -48,7 +48,7 @@ const ResetPassword: React.FC = () => {
           abortEarly: false,
         });
 
-        formRef.current?.setErrors([]);
+        formRef.current?.setErrors({});
 
         if (!token) {
           throw new Error();

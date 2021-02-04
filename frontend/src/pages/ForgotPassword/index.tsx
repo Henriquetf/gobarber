@@ -41,7 +41,7 @@ const ForgotPassword: React.FC = () => {
           abortEarly: false,
         });
 
-        formRef.current?.setErrors([]);
+        formRef.current?.setErrors({});
 
         await forgotPassword(signInData.email);
 

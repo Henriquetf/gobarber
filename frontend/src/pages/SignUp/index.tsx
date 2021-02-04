@@ -39,7 +39,7 @@ const SignUp: React.FC = () => {
           abortEarly: false,
         });
 
-        formRef.current?.setErrors([]);
+        formRef.current?.setErrors({});
 
         await signUp(signUpData);
 
