@@ -10,6 +10,7 @@ import {
   Platform,
   TextInput,
 } from 'react-native';
+import { launchImageLibrary } from 'react-native-image-picker';
 import * as Yup from 'yup';
 
 import FeatherIcon from '../../components/FeatherIcon';
@@ -49,7 +50,7 @@ const Profile: React.FC = () => {
   const newPasswordInputRef = useRef<TextInput>(null);
 
   const navigation = useNavigation();
-  const { user } = useAuth();
+  const { user, updateUser } = useAuth();
 
   const handleSubmitForm = useCallback<SubmitHandler>(
     async (data: Record<string, unknown>) => {
@@ -88,6 +89,35 @@ const Profile: React.FC = () => {
     navigation.goBack();
   }, [navigation]);
 
+  const handleUpdateAvatar = useCallback(() => {
+    launchImageLibrary(
+      {
+        mediaType: 'photo',
+      },
+      (response) => {
+        if (response.didCancel) {
+          return;
+        }
+
+        if (response.errorCode) {
+          Alert.alert('Erro ao atualizar seu avatar.');
+        }
+
+        const data = new FormData();
+
+        data.append('image', {
+          uri: response.uri,
+          type: response.type,
+          name: response.fileName,
+        });
+
+        api.patch('user/avatar', data).then((response) => {
+          updateUser(response.data);
+        });
+      },
+    );
+  }, [updateUser]);
+
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
@@ -105,12 +135,12 @@ const Profile: React.FC = () => {
             <FeatherIcon name="chevron-left" size={24} color="#999591" />
           </BackButton>
 
-          <UserAvatarButton>
+          <UserAvatarButton onPress={handleUpdateAvatar}>
             <UserAvatar source={{ uri: user?.avatarUrl }} />
           </UserAvatarButton>
 
           <View>
-            <Title>Meu perfil</Title>
+            <Title>Meus perfil</Title>
           </View>
 
           <Form initialData={user} ref={formRef} onSubmit={handleSubmitForm}>

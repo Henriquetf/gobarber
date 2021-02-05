@@ -24,6 +24,7 @@ interface AuthContextShape {
   isLoading: boolean;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
+  updateUser(value: User | undefined): void;
 }
 
 const [useAuth, AuthContext] = createCtx<AuthContextShape>();
@@ -63,6 +64,7 @@ const AuthProvider: React.FC = ({ children }) => {
         signIn,
         signOut,
         isLoading,
+        updateUser: setUser,
       }}
     >
       {children}
